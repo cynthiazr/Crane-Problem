@@ -40,7 +40,9 @@ path crane_unloading_exhaustive(const grid& setting) {
   // TODO: implement the exhaustive search algorithm, then delete this
   // comment.
   path best(setting);
-  for (size_t steps = 0; steps <= max_steps; steps++) {
+
+  // for (size_t steps = 0; steps <= max_steps; steps++) {
+  return best;
 }
 
 // Solve the crane unloading problem for the given grid, using a dynamic
@@ -50,10 +52,11 @@ path crane_unloading_exhaustive(const grid& setting) {
 //path crane_unloading_dyn_prog(const grid& setting) {
 path crane_unloading_dyn_prog(const grid& setting) {
 
+  path best(setting);
+
   // grid must be non-empty.
   assert(setting.rows() > 0);
   assert(setting.columns() > 0);
-
   
   using cell_type = std::optional<path>;
 
@@ -71,16 +74,19 @@ path crane_unloading_dyn_prog(const grid& setting) {
         continue;
         }
 
-    cell_type from_above = std::nullopt;
-    cell_type from_left = std::nullopt;
+      cell_type from_above = std::nullopt;
+      cell_type from_left = std::nullopt;
 
 	    // TODO: implement the dynamic programming algorithm, then delete this
-  // comment.
+      // comment.
 
-   assert(best->has_value());
-//  //   std::cout << "total cranes" << (**best).total_cranes() << std::endl;
+      // assert(best->has_value());
+      //  //   std::cout << "total cranes" << (**best).total_cranes() << std::endl;
 
-   return **best;
-	}
+     // return **best;
+	  }
+  }
+  return best;
+}
 
 }
