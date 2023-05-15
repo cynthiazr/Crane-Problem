@@ -37,13 +37,49 @@ path crane_unloading_exhaustive(const grid& setting) {
   const size_t max_steps = setting.rows() + setting.columns() - 2;
   assert(max_steps < 64);
 
-  // TODO: implement the exhaustive search algorithm, then delete this
-  // comment.
   path best(setting);
 
-  // for (size_t steps = 0; steps <= max_steps; steps++) {
+  // Loop through all possible paths of length up to max_steps.
+  for (size_t steps = 0; steps <= max_steps; steps++) {
+
+    // Loop through all possible binary strings of length steps.
+    for (size_t path_bits = 0; path_bits <= pow(2, steps) - 1; path_bits++) {
+
+      // Generate a path from the binary string of steps bits.
+      path candidate(setting);
+      bool valid_path = true;
+
+      for (size_t i = 0; i < steps; i++) {
+        // Extract the i-th bit from path_bits.
+        bool east = (path_bits >> i) & 1;
+        step_direction dir;
+        if (east) {
+          // Move east.
+          dir = STEP_DIRECTION_EAST;
+        } else {
+          // Move south.
+          dir = STEP_DIRECTION_SOUTH;
+        }
+
+        if (candidate.is_step_valid(dir)) { // if the next step is valid, add the next step to the candidate path
+          candidate.add_step(dir);
+        } else {
+          valid_path = false; // Otherwise, the next step is invalid and we stop checking
+          break;
+        }
+      }
+
+      // If the candidate path is valid and it reaches more cranes than the current best path,
+      // update the best path to be the candidate path.
+      if (valid_path && candidate.total_cranes() > best.total_cranes()) {
+        best = candidate;
+      }
+      
+    }
+  }
   return best;
 }
+
 
 // Solve the crane unloading problem for the given grid, using a dynamic
 // programming algorithm.

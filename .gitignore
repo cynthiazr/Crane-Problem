@@ -40,3 +40,4 @@
 *.vsix
 
 cranes_test
+cranes_timing
