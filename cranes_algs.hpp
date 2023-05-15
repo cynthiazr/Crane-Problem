@@ -54,14 +54,14 @@ path crane_unloading_exhaustive(const grid& setting) {
         bool east = (path_bits >> i) & 1;
         step_direction dir;
         if (east) {
-          // Move east.
+          // Move east
           dir = STEP_DIRECTION_EAST;
         } else {
-          // Move south.
+          // Move south
           dir = STEP_DIRECTION_SOUTH;
         }
 
-        if (candidate.is_step_valid(dir)) { // if the next step is valid, add the next step to the candidate path
+        if (candidate.is_step_valid(dir)) { // If the next step is valid, add the next step to the candidate path
           candidate.add_step(dir);
         } else {
           valid_path = false; // Otherwise, the next step is invalid and we stop checking
@@ -69,8 +69,7 @@ path crane_unloading_exhaustive(const grid& setting) {
         }
       }
 
-      // If the candidate path is valid and it reaches more cranes than the current best path,
-      // update the best path to be the candidate path.
+      // If the candidate path is valid and it reaches more cranes than the current best path, update the best path to be the candidate path.
       if (valid_path && candidate.total_cranes() > best.total_cranes()) {
         best = candidate;
       }
